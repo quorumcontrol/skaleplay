@@ -25,6 +25,9 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 // Go to https://hardhat.org/config/ to learn more
 
 const config: HardhatUserConfig = {
+  namedAccounts: {
+    deployer: 0,
+  },
   solidity: {
     version: "0.8.13",
     settings: {
@@ -39,12 +42,14 @@ const config: HardhatUserConfig = {
       url: process.env.RINKEBY_URL || "",
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+      tags: ['test', 'testmainnet']
     },
     skaletest: {
       url: "https://testnet-proxy.skalenodes.com/v1/whispering-turais",
       gasPrice: 0,
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+      tags: ['test', 'testskale']
     },
   },
   gasReporter: {
