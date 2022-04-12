@@ -3,10 +3,11 @@ import * as dotenv from "dotenv";
 import { HardhatUserConfig, task } from "hardhat/config";
 import "@nomiclabs/hardhat-etherscan";
 import "@nomiclabs/hardhat-waffle";
-import '@nomiclabs/hardhat-ethers'
+import "@nomiclabs/hardhat-ethers";
 import "@typechain/hardhat";
 import "hardhat-gas-reporter";
 import "solidity-coverage";
+import "hardhat-deploy";
 
 dotenv.config();
 
@@ -24,8 +25,15 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 // Go to https://hardhat.org/config/ to learn more
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.4",
-  defaultNetwork: 'skaletest',
+  solidity: {
+    version: "0.8.13",
+    settings: {
+      optimizer: {
+        enabled: false,
+        runs: 200,
+      },
+    },
+  },
   networks: {
     rinkeby: {
       url: process.env.RINKEBY_URL || "",
@@ -33,7 +41,7 @@ const config: HardhatUserConfig = {
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
     skaletest: {
-      url: 'https://testnet-proxy.skalenodes.com/v1/whispering-turais',
+      url: "https://testnet-proxy.skalenodes.com/v1/whispering-turais",
       gasPrice: 0,
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
@@ -47,9 +55,9 @@ const config: HardhatUserConfig = {
     apiKey: process.env.ETHERSCAN_API_KEY,
   },
   typechain: {
-    target: 'ethers-v5',
-    outDir: 'typechain',
-    externalArtifacts: ['externalArtifacts/*.json'], // optional array of glob patterns with external artifacts to process (for example external libs from node_modules)
+    target: "ethers-v5",
+    outDir: "typechain",
+    externalArtifacts: ["externalArtifacts/*.json"], // optional array of glob patterns with external artifacts to process (for example external libs from node_modules)
   },
 };
 
