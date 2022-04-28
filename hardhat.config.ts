@@ -5,7 +5,7 @@ import "@nomiclabs/hardhat-etherscan";
 import "@nomiclabs/hardhat-waffle";
 import "@nomiclabs/hardhat-ethers";
 import "@typechain/hardhat";
-import "hardhat-gas-reporter";
+// import "hardhat-gas-reporter";
 import "solidity-coverage";
 import "hardhat-deploy";
 
@@ -46,16 +46,16 @@ const config: HardhatUserConfig = {
     },
     skaletest: {
       url: "https://testnet-proxy.skalenodes.com/v1/whispering-turais",
-      gasPrice: 0,
+      // gasPrice: 0,
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
       tags: ['test', 'testskale']
     },
   },
-  gasReporter: {
-    enabled: process.env.REPORT_GAS !== undefined,
-    currency: "USD",
-  },
+  // gasReporter: {
+  //   enabled: process.env.REPORT_GAS !== undefined,
+  //   currency: "USD",
+  // },
   etherscan: {
     apiKey: process.env.ETHERSCAN_API_KEY,
   },
